@@ -113,8 +113,8 @@ body {
   cursor: url("03.png"), auto; /* 鼠标悬停时的光标，如果 custom_cursor.png 加载失败，则使用 auto 光标 */
 }
     #centeredText {
-  position: fixed; /* 固定在屏幕底部 */
-  bottom: 0; /* 贴紧底部 */
+ 
+  bottom: 20px; 
   left: 0; /* 贴紧左侧 */
   width: 100%; /* 占据整个宽度 */
   text-align: center; /* 文字居中 */
@@ -122,8 +122,7 @@ body {
   color: white; /* 文字颜色 */
   font-size: 16px; /* 文字大小 */
   padding: 10px 0; /* 上下内边距 */
-  z-index: 9999; /* 确保在其他元素之上 */
-}
+  z-index:1; 
 
 }
 
