@@ -1,7 +1,16 @@
-// 可以添加JavaScript代码来动态修改底部文字，例如：
-document.getElementById("footerText").innerText = "2025 Catsimple / It's 631th day we are in love.";
+// 1. 创建 div 元素
+const centeredTextDiv = document.createElement("div");
 
-// 或者，可以添加其他交互效果，例如点击事件：
-document.getElementById("myFooter").addEventListener("click", function() {
-  alert("你点击了底部文字！");
-});
+// 2. 设置 div 的 id，方便后续修改
+centeredTextDiv.id = "centerText";
+
+// 3. 设置 div 的文本内容
+centeredTextDiv.textContent = "Osiris Loves Catismple Forever.";
+
+// 4. 将 div 添加到 body 的底部
+document.body.appendChild(centeredTextDiv);
+
+// (可选) 动态修改文本内容
+// setTimeout(function() {
+//   centeredTextDiv.textContent = "Updated Copyright Text!";
+// }, 5000); // 5秒后更新文本
