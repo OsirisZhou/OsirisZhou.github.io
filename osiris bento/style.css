@@ -1,7 +1,6 @@
 
 body {
     margin: 0;
-    padding: 2rem;
     background: #87CEFA;
     font-family: 'Segoe UI', sans-serif;
 
@@ -118,7 +117,7 @@ body {
   left: 0; /* 贴紧左侧 */
   width: 100%; /* 占据整个宽度 */
   text-align: center; /* 文字居中 */
-  background-color: transparent; /* 背景透明 */
+  background-color: semi-black; /* 背景透明 */
   color: white; /* 文字颜色 */
   font-size: 16px; /* 文字大小 */
   padding: 10px 0; /* 上下内边距 */
