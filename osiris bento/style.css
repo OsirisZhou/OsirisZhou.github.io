@@ -5,6 +5,16 @@ body {
     background: #87CEFA;
     font-family: 'Segoe UI', sans-serif;
 }
+body {
+ 
+  background-image: url("path/to/your/image.jpg"); /* 将 "path/to/your/image.jpg" 替换为你的图片路径 */
+  background-repeat: no-repeat;
+  background-size: cover; 
+  background-position: center;
+ background-color: #f0f0f0; 
+
+
+
 
 /* Bento 容器 */
 .bento-container {
