@@ -100,3 +100,12 @@ body {
     .bento-container {
         grid-template-columns: 1fr;
     }
+<style>
+  footer {
+    background-color: #f0f0f0;
+    padding: 10px; 
+    text-align: center; 
+    font-size: 0.8em; 
+    color: #555; 
+  }
+</style>
