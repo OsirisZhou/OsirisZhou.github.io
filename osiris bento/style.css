@@ -91,3 +91,21 @@ body {
         grid-template-columns: 1fr;
     }
 }
+nav {
+  background-color: rgba(255, 255, 255, 0.5); /* 半透明白色背景 */
+  height: 60px; /* 缩小导航栏高度 */
+}
+
+nav a {
+  color: #333; /* 深灰色链接颜色 */
+  font-size: 14px; /* 缩小字体大小 */
+  text-decoration: none; /* 移除下划线 */
+}
+
+button {
+  background-color: transparent; /* 透明背景 */
+  border: none; /* 移除边框 */
+  color: #fff; /* 白色文字 */
+  padding: 10px 20px;
+  border-radius: 5px; /* 圆角 */
+}
