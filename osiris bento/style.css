@@ -100,7 +100,7 @@ body {
     .bento-container {
         grid-template-columns: 1fr;
     }
-<style>
+
   footer {
     background-color: #ffffff; 
     padding: 20px; 
@@ -112,4 +112,4 @@ body {
   footer p {
     margin: 0; 
   }
-</style>
+
