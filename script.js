@@ -2,7 +2,7 @@
 const centeredTextDiv = document.createElement("div");
 
 // 2. 设置 div 的 id，方便后续修改
-centeredTextDiv.id = "centerText";
+centeredTextDiv.id = "centeredText"; // 修改为 centeredText
 
 // 3. 设置 div 的文本内容
 centeredTextDiv.textContent = "Osiris Loves Catismple Forever.";
