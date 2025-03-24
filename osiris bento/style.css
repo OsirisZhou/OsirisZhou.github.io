@@ -7,7 +7,7 @@ body {
 }
 body {
  
-  background-image: url("path/to/your/image.jpg"); /* 将 "path/to/your/image.jpg" 替换为你的图片路径 */
+  background-image: url("02.jpg");
   background-repeat: no-repeat;
   background-size: cover; 
   background-position: center;
@@ -27,7 +27,7 @@ body {
 
 /* Bento 卡片通用样式 */
 .bento-item {
-    background: #F0F8FF;
+    background: #FFFFFF;
     border-radius: 15px;
     padding: 2rem;
     box-shadow: 0 4px 6px #B0E0E6);
