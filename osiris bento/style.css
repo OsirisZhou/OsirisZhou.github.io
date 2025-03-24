@@ -105,5 +105,12 @@ body {
     font-size:1.2em;
     color: #555footer p   :0;
   }
+    #myFooter {
+  cursor: pointer; /* 默认光标 */
+}
+
+#myFooter:hover {
+  cursor: url("custom_cursor.png"), auto; /* 鼠标悬停时的光标，如果 custom_cursor.png 加载失败，则使用 auto 光标 */
+}
 }
 
