@@ -30,7 +30,7 @@ body {
     background: #FFFFFF;
     border-radius: 15px;
     padding: 2rem;
-    box-shadow: 0 4px 6px #B0E0E6);
+    box-shadow:rgba(173, 216, 230, 0.5);
     transition: transform 0.3s ease;
 }
 
