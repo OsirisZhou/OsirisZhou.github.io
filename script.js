@@ -8,9 +8,11 @@ centeredTextDiv.id = "centeredText"; // 修改为 centeredText
 centeredTextDiv.textContent = "Osiris Loves Catismple Forever.";
 
 // 4. 将 div 添加到 body 的底部
-document.body.appendChild(centeredTextDiv);
+document.addEventListener('DOMContentLoaded', function() {
+  const centeredTextDiv = document.createElement("div");
+  centeredTextDiv.id = "centeredText";
+  centeredTextDiv.textContent = "Osiris Loves Catismple Forever.";
+  document.body.appendChild(centeredTextDiv);
+});
 
-// (可选) 动态修改文本内容
-// setTimeout(function() {
-//   centeredTextDiv.textContent = "Updated Copyright Text!";
-// }, 5000); // 5秒后更新文本
+
