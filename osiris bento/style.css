@@ -1,8 +1,7 @@
-/* 基础样式 */
 body {
     margin: 0;
     padding: 2rem;
-    background: #87CEFA;
+    background: #87CEFA; /* 淡天蓝色背景 */
     font-family: 'Segoe UI', sans-serif;
 }
 
@@ -17,28 +16,16 @@ body {
 
 /* Bento 卡片通用样式 */
 .bento-item {
-    background: rgba(0, 255, 255, 0.3);
+    /*  transparent */
+    /* background: rgba(0, 255, 255, 0.3); */
     border-radius: 15px;
     padding: 2rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
 }
 
-.bento-item:hover {
-    transform: translateY(-3px);
-}
-
-/* 头像区块 */
-.profile {
-    text-align: center;
-    grid-column: 1 / -1; /* 跨所有列 */
-}
-
-.avatar {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    margin-bottom: 1rem;
+.bento-item.special {
+    background: rgba(0, 255, 255, 0.3); /* 半透明青色 */
 }
 
 /* 作品集区块 */
@@ -49,7 +36,15 @@ body {
 }
 
 .project {
-    background: #f8f9fa;
+    /* transparent */
+    /* background: #f8f9fa; */
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.project.highlighted {
+    background: #f8f9fa; /* 浅灰色 */
     padding: 1rem;
     border-radius: 10px;
     text-align: center;
@@ -91,72 +86,4 @@ body {
         grid-template-columns: 1fr;
     }
 }
-nav {
-  background-color: rgba(255, 255, 255, 0.5); /* 半透明白色背景 */
-  height: 60px; /* 缩小导航栏高度 */
-}
 
-nav a {
-  color: #333; /* 深灰色链接颜色 */
-  font-size: 14px; /* 缩小字体大小 */
-  text-decoration: none; /* 移除下划线 */
-}
-
-button {
-  background-color: transparent; /* 透明背景 */
-  border: none; /* 移除边框 */
-  color: #fff; /* 白色文字 */
-  padding: 10px 20px;
-  border-radius: 5px; /* 圆角 */
-}
-.hero {
-  position: relative; /* 设置定位上下文 */
-  height: 500px;
-  background-image: url("your-image.jpg");
-  background-size: cover; /* 覆盖整个区域 */
-  background-position: center; /* 居中显示 */
-  color: #fff;
-  text-align: center;
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.3); /* 黑色半透明叠加层 */
-}
-
-.hero .content {
-  position: relative; /* 提升层级，显示在叠加层之上 */
-  z-index: 1;
-  padding: 50px;
-}
-.blurred-background {
-  background-image: url("your-image.jpg");
-  background-size: cover;
-  filter: blur(5px); /* 模糊背景 */
-}
-
-.frosted-glass {
-  background-color: rgba(255, 255, 255, 0.2); /* 半透明白色背景 */
-  backdrop-filter: blur(10px); /* 毛玻璃效果 */
-}
-nav {
-  background-color: transparent;
-  transition: background-color 0.3s ease; /* 添加过渡效果 */
-}
-
-nav.scrolled {
-  background-color: rgba(255, 255, 255, 0.8); /* 滚动时改变背景颜色 */
-}
-button {
-  background-color: #3498db;
-  transition: background-color 0.3s ease; /* 添加过渡效果 */
-}
-
-button:hover {
-  background-color: #2980b9; /* 鼠标悬停时改变背景颜色 */
-}
