@@ -98,16 +98,12 @@ body {
     grid-template-columns: 1fr;
   }
 
-  footer {
+ footer {
     background-color: #ffffff;
-    padding: 20px;
+    padding 20;
     text-align: center;
-    font-size: 1.2em;
-    color: #555;
-  }
-
-  footer p {
-    margin: 0;
+    font-size:1.2em;
+    color: #555footer p   :0;
   }
 }
 
