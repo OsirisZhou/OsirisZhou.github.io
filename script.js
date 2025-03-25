@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
       renderer: 'svg', // 渲染方式 (svg, canvas, html)
       loop: true, // 是否循环播放
       autoplay: true, // 是否自动播放
-      path: 'osiris bento/05.json' // Lottie JSON 文件的路径 (替换为你的文件路径)
+      path: 'osiris bento/Animation - 1742881805726.json' // Lottie JSON 文件的路径 (替换为你的文件路径)
     });
 
     setTimeout(function() {
