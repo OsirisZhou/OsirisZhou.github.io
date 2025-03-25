@@ -1,4 +1,3 @@
-
 body {
     margin: 0;
     padding: 2rem;
@@ -6,24 +5,11 @@ body {
     font-family: 'Segoe UI', sans-serif;
     background-image: url("02.jpg");
     background-repeat: no-repeat;
-    background-size: cover; 
+    background-size: cover;
     background-position: center;
-    background-color: #f0f0f0; 
-    z-index: -1; 
-    position: relative; /* 添加 position: relative，以便蒙版相对于 body 定位 */
+    background-color: #f0f0f0;    
 }
 
-/* 蒙版样式 */
-body::before {
-    content: ''; /* 必须要有内容 */
-    position: absolute; /* 相对于 body 定位 */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4); /* 黑色半透明蒙版，调整RGBA值改变颜色和透明度 */
-    z-index: 1; /* 确保蒙版在背景图片之上 */
-}
 
 .bento-container {
     display: grid;
@@ -37,7 +23,7 @@ body::before {
     background: #FFFFFF;
     border-radius: 15px;
     padding: 2rem;
-    box-shadow:rgba(173, 216, 230, 0.5);
+    box-shadow: rgba(173, 216, 230, 0.5);
     transition: transform 0.3s ease;
 }
 
@@ -48,7 +34,7 @@ body::before {
 /* 头像区块 */
 .profile {
     text-align: center;
-    grid-column: 1 / -1; 
+    grid-column: 1 / -1;
 }
 
 .avatar {
@@ -148,6 +134,7 @@ body::before {
     width: 100%; /* 动画占据容器的全部宽度 */
     height: 100%; /* 动画占据容器的全部高度 */
 }
+
 
 
 
