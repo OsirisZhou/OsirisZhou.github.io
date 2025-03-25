@@ -12,5 +12,3 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('animation-container').style.display = 'none'; // 隐藏 animation-container
   }, 2000);
 });
-
-
