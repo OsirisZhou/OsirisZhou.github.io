@@ -26,18 +26,6 @@ background {
   z-index: 1; /* 确保蒙版在背景图片之上 */
 }
 
-.background {
-  animation: pan 20s linear infinite; /* 20秒一个循环，线性动画，无限循环 */
-}
-
-@keyframes pan {
-  from {
-    background-position: 0% center;
-  }
-  to {
-    background-position: 100% center;
-  }
-
 
 .bento-container {
     display: grid;
