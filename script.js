@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
   function loadAnimation() {
     animation = lottie.loadAnimation({
       container: animationContainer,
-      renderer: 'svg',
+      renderer: 'canvas', // 使用 Canvas 渲染器
       loop: true,
       autoplay: true,
       path: 'osiris bento/05.json', // 确保路径正确
@@ -48,11 +48,12 @@ document.addEventListener("DOMContentLoaded", function() {
     document.removeEventListener('click', playAudio); // Remove the listener after the first click
   }
 
+  // 预加载音频文件
+  audio.preload = 'auto';
+
   // Try to load animation immediately
   loadAnimation();
 
   // Listen for the first click to play audio
   document.addEventListener('click', playAudio);
 });
-
-
