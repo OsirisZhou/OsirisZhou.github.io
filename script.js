@@ -9,13 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
       renderer: 'canvas', // 使用 Canvas 渲染器
       loop: true,
       autoplay: true,
-      path: 'osiris bento/05.json', // 确保路径正确
-      // 添加以下配置项，提高兼容性
-      rendererSettings: {
-        preserveAspectRatio: 'xMidYMid meet', // 保持宽高比
-        progressiveLoad: false, // 关闭渐进式加载
-        hideOnTransparent: false // 透明时也显示
-      }
+      path: 'osiris bento/01.json', // 确保路径正确   
     });
 
     animation.addEventListener('DOMLoaded', function() {
