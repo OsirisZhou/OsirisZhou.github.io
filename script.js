@@ -1,11 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
   const centeredText = document.getElementById("centeredText");
 
-import lottie from 'https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js';
-
-document.addEventListener("DOMContentLoaded", function() {
-  const centeredText = document.getElementById("centeredText");
-
   // 加载 Lottie 动画
   const animation = lottie.loadAnimation({
     container: document.getElementById('loading'), // 动画容器
@@ -16,11 +11,10 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   // 模拟加载完成 (实际应用中，替换为你的加载逻辑)
-setTimeout(function() {
+  setTimeout(function() {
     document.getElementById('loading').style.display = 'none';
-    document.getElementById('content').style.display = 'block';
-}, 2000);
+  
 
-
+   
+  }, 2000);
 });
-
