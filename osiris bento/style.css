@@ -125,9 +125,7 @@ body {
   text-align: center;
   background-color: rgba(0,0,0,0.4);
   color: white;
-  font-size: 16px;
-  padding: 10px 0;
-  z-index: 9999;
+  z-index: 1;
 }
 
 }
