@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
     centeredText.style.left = "0";
     centeredText.style.width = "100%";
     centeredText.style.textAlign = "center";
-    centeredText.style.backgroundColor = "rgba(0,0,0,0.6)";
+    centeredText.style.backgroundColor = "rgba(0,0,0,0.4)";
     centeredText.style.color = "white";
     centeredText.style.fontSize = "16px";
     centeredText.style.padding = "10px 0";
