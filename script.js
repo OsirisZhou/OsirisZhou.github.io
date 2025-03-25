@@ -1,7 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-  const centeredText = document.getElementById("centeredText");
-
-  // 加载 Lottie 动画
   const animation = lottie.loadAnimation({
     container: document.getElementById('loading'), // 动画容器
     renderer: 'svg', // 渲染方式 (svg, canvas, html)
@@ -12,9 +9,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // 模拟加载完成 (实际应用中，替换为你的加载逻辑)
   setTimeout(function() {
-    document.getElementById('loading').style.display = 'none';
-  
-
-   
+    document.getElementById('animation-container').style.display = 'none'; // 隐藏 animation-container
   }, 2000);
 });
+
+
