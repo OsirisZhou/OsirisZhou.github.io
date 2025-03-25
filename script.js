@@ -1,28 +1,26 @@
 document.addEventListener("DOMContentLoaded", function() {
- Container = document.getElementById('animation-container');
+  const animationContainer = document.getElementById('animation-container'); // 使用 animationContainer
   const audio = document.getElementById('myAudio');
   let animation; // Declare animation variable
 
   function loadAnimation() {
-  const animation = lottie.loadAnimation({
+    animation = lottie.loadAnimation({
       container: animationContainer,
       renderer: 'svg', // 渲染方式 (svg, canvas, html)
-    loop: true, // 是否循环播放
-    autoplay: true, // 是否自动播放
-    path: 'osiris bento/05.json' // Lottie JSON 文件的路径 (替换为你的文件路径)
-  });
+      loop: true, // 是否循环播放
+      autoplay: true, // 是否自动播放
+      path: 'osiris bento/05.json' // Lottie JSON 文件的路径 (替换为你的文件路径)
+    });
 
     setTimeout(function() {
-    document.getElementById('animation-container').style.display = 'none'; // 隐藏 animation-container
-  }, 2000);
-});
-
+      animationContainer.style.display = 'none'; // 隐藏 animation-container
+    }, 2000);
 
     animation.addEventListener('DOMLoaded', function() {
       console.log("Lottie animation loaded successfully - DOMLoaded event triggered!");
       animationContainer.style.display = 'none';
- }
-     
+    });
+
     animation.addEventListener('complete', function() {
       console.log("Lottie animation completed");
     });
@@ -52,3 +50,4 @@ document.addEventListener("DOMContentLoaded", function() {
   // Listen for the first click to play audio
   document.addEventListener('click', playAudio);
 });
+
