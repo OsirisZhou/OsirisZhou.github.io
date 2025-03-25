@@ -9,12 +9,19 @@ document.addEventListener("DOMContentLoaded", function() {
       renderer: 'svg',
       loop: true,
       autoplay: true,
-      path: 'osiris bento/05.json'
+      path: 'osiris bento/05.json', // 确保路径正确
+      // 添加以下配置项，提高兼容性
+      rendererSettings: {
+        preserveAspectRatio: 'xMidYMid meet', // 保持宽高比
+        progressiveLoad: false, // 关闭渐进式加载
+        hideOnTransparent: false // 透明时也显示
+      }
     });
 
     animation.addEventListener('DOMLoaded', function() {
-      console.log("Lottie animation loaded successfully");
+      console.log("Lottie animation loaded successfully - DOMLoaded event triggered!");
       animationContainer.style.display = 'none';
+      animation.play(); // 播放动画
     });
 
     animation.addEventListener('complete', function() {
