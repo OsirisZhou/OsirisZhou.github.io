@@ -127,8 +127,6 @@ body {
     z-index: 1000; /* 确保动画在其他内容之上 */
     border-radius: 10px; /* 添加圆角 */
     padding: 20px; /* 添加内边距 */
-    box-sizing: border-box; /* 保证padding不影响容器的宽度 */
-    display: block; /* 确保容器可见 */
 }
 
 #loading {
