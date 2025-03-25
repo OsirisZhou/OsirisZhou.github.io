@@ -22,17 +22,5 @@ setTimeout(function() {
 }, 2000);
 
 
-  if (centeredText) {
-    centeredText.style.position = "fixed";
-    centeredText.style.bottom = "0";
-    centeredText.style.left = "0";
-    centeredText.style.width = "100%";
-    centeredText.style.textAlign = "center";
-    centeredText.style.backgroundColor = "rgba(0,0,0,0.4)";
-    centeredText.style.color = "white";
-    centeredText.style.fontSize = "16px";
-    centeredText.style.padding = "10px 0";
-    centeredText.style.zIndex = "9999";
-  }
 });
 
