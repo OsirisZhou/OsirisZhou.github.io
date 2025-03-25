@@ -2,6 +2,8 @@ alert("Welcome to Osiris's Site");
 document.addEventListener("DOMContentLoaded", function() {
   const centeredText = document.getElementById("centeredText");
 
+import lottie from 'lottie-web';
+
   if (centeredText) {
     centeredText.style.position = "fixed";
     centeredText.style.bottom = "0";
