@@ -21,6 +21,10 @@ document.addEventListener("DOMContentLoaded", function() {
     animation.addEventListener('DOMLoaded', function() {
       console.log("Lottie animation loaded successfully - DOMLoaded event triggered!");
       animationContainer.style.display = 'none';
+
+      // 降低动画播放速度，延长播放时间
+      animation.setSpeed(0.5); // 设置播放速度为 0.5 倍
+
       animation.play(); // 播放动画
     });
 
