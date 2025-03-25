@@ -133,20 +133,26 @@ body {
 }
 
 #animation-container {
-    width: 50%;
-    height: auto;
-    margin: 0 auto;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-background-color: white; /* 添加背景色，方便观察 */
+    width: 50%; /* 设置容器的宽度，调整缩放比例 */
+    height: auto; /* 高度自适应，保持比例 */
+    margin: 0 auto; /* 水平居中 */
+    position: fixed; /* 使用fixed定位，使其相对于视口固定 */
+    bottom: 10%; /* 距离底部10% */
+    left: 50%; /* 水平居中 */
+    transform: translateX(-50%); /* 抵消自身宽度的一半 */
+    background-color: rgba(255, 255, 255, 0.5); /* 半透明白色背景 */
     z-index: 10; /* 确保动画在其他内容之上 */
+    border-radius: 10px; /* 添加圆角 */
+    padding: 20px; /* 添加内边距 */
+    box-sizing: border-box; /* 保证padding不影响容器的宽度 */
 }
 
 #loading {
-    width: 100%;
-    height: 100%;
+    width: 100%; /* 动画占据容器的全部宽度 */
+    height: 100%; /* 动画占据容器的全部高度 */
 }
+
+
 
 
 
