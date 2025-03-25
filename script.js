@@ -8,14 +8,8 @@ document.addEventListener("DOMContentLoaded", function() {
     path: 'osiris bento/05.json' // Lottie JSON 文件的路径 (替换为你的文件路径)
   });
   const audio = document.getElementById('myAudio');
-
-  // 监听 Lottie 动画的 loopComplete 事件 (如果需要循环播放完成后触发)
-  animation.addEventListener('loopComplete', function() {
-    animationContainer.style.display = 'none';
-    audio.play();
-  });
-
- // 监听 Lottie 动画加载完成事件 (推荐)
+  
+// 监听 Lottie 动画加载完成事件 (推荐)
   animation.addEventListener('data_ready', function() {
     animationContainer.style.display = 'none';
     audio.play();
