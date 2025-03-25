@@ -4,7 +4,7 @@ body {
     padding: 2rem;
     background: #87CEFA;
     font-family: 'Segoe UI', sans-serif;
-    overflow: hidden; /* 防止内容超出导致滚动条，影响背景效果 */
+  
 
 background {
   background-image: url("02.jpg");
