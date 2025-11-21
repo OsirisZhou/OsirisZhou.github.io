@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 
 // --- Component: NebulaEffect (Theme: Sky Blue) ---
-const NebulaEffect: React.FC = () => {
+const NebulaEffect = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: -9999, y: -9999 });
 
@@ -17,44 +17,57 @@ const NebulaEffect: React.FC = () => {
     let width = 0;
     let height = 0;
 
-    // Light Sky Blue Palette
-    // We use semi-transparent colors because they will be drawn over the card background
-    const COLORS = ['rgba(224, 242, 254, 0.5)', 'rgba(186, 230, 253, 0.3)', 'rgba(125, 211, 252, 0.2)']; // Sky-100, Sky-200, Sky-300
+    // Configuration: Light Sky Blue Theme
+    // Base: Sky-50, Clouds: Sky-100, Sky-200, Blue-100
+    const COLORS = ['#f0f9ff', '#e0f2fe', '#bae6fd', '#dbeafe'];
     
-    const PARTICLE_COUNT = 30; // Less noise for cleaner look
+    // Layer 2: Particles Configuration
+    const PARTICLE_COUNT_MAJOR = 15;
+    const PARTICLE_COUNT_DUST = 200;
+    
+    // Interaction Config
     const REPEL_RADIUS = 150;
     
     class Particle {
-        x: number; 
-        y: number; 
-        size: number; 
-        vx: number; 
-        vy: number;
-        alpha: number;
+        x: number;
+        y: number;
+        isMajor: boolean;
+        size: number;
+        brightness: number;
         blinkSpeed: number;
+        vx: number;
+        vy: number;
 
-        constructor(w: number, h: number) {
+        constructor(w: number, h: number, major: boolean) {
             this.x = Math.random() * w;
             this.y = Math.random() * h;
-            this.size = Math.random() * 2 + 0.5; // Small, delicate particles
-            this.alpha = Math.random() * 0.5 + 0.2;
-            this.blinkSpeed = (Math.random() * 0.02) + 0.005;
+            this.isMajor = major;
             
-            this.vx = (Math.random() - 0.5) * 0.3;
-            this.vy = (Math.random() - 0.5) * 0.3;
+            if (major) {
+                this.size = Math.random() * 2 + 1; // 1px - 3px
+            } else {
+                this.size = Math.random() * 1.5 + 0.5; // 0.5px - 2px
+            }
+            
+            this.brightness = Math.random();
+            this.blinkSpeed = (Math.random() * 0.02) + 0.005; // Shimmer speed
+            
+            // Internal Flow Speed (Slow drift)
+            this.vx = (Math.random() - 0.5) * 0.2;
+            this.vy = (Math.random() - 0.5) * 0.2;
         }
         
         update(mx: number, my: number) {
             this.x += this.vx;
             this.y += this.vy;
             
-            // Wrap around
+            // Boundary wrap
             if (this.x < 0) this.x = width;
             else if (this.x > width) this.x = 0;
             if (this.y < 0) this.y = height;
             else if (this.y > height) this.y = 0;
 
-            // Interaction: Repel
+            // Interaction: Repel Particles
             if (mx > -100 && my > -100) {
                 const dx = mx - this.x;
                 const dy = my - this.y;
@@ -62,91 +75,151 @@ const NebulaEffect: React.FC = () => {
                 if (dist < REPEL_RADIUS) {
                     const angle = Math.atan2(dy, dx);
                     const force = (REPEL_RADIUS - dist) / REPEL_RADIUS;
-                    const push = force * 2.0;
+                    const push = force * 2.0; // Repel strength
+                    
                     this.x -= Math.cos(angle) * push;
                     this.y -= Math.sin(angle) * push;
                 }
             }
 
-            // Shimmer
-            this.alpha += this.blinkSpeed;
-            if (this.alpha > 0.8 || this.alpha < 0.2) this.blinkSpeed *= -1;
+            // Shimmer Effect
+            this.brightness += this.blinkSpeed;
+            if (this.brightness > 1 || this.brightness < 0.3) this.blinkSpeed *= -1;
         }
 
         draw(ctx: CanvasRenderingContext2D) {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            // Sky-500 color for particles to be visible on light bg
-            ctx.fillStyle = `rgba(14, 165, 233, ${this.alpha})`; 
+            
+            // Particle Color: Sky Blue / Blue-400 to make them visible on light bg
+            ctx.fillStyle = `rgba(56, 189, 248, ${Math.abs(this.brightness)})`;
+            
+            if (this.isMajor) {
+                ctx.shadowBlur = 4;
+                ctx.shadowColor = 'rgba(14, 165, 233, 0.5)'; // Sky-500 glow
+            } else {
+                ctx.shadowBlur = 0;
+            }
+            
             ctx.fill();
+            ctx.shadowBlur = 0;
         }
     }
 
     let particles: Particle[] = [];
-    // Clouds for the "Nebula" feel
+    // Nebulae Clouds
     const clouds = [
-        { x: 0, y: 0, r: 0, color: COLORS[0], vx: 0.05, vy: 0.02 },
-        { x: 0, y: 0, r: 0, color: COLORS[1], vx: -0.04, vy: 0.04 },
-        { x: 0, y: 0, r: 0, color: COLORS[2], vx: 0.02, vy: -0.05 },
+        { x: 0, y: 0, r: 0, color: COLORS[1], vx: 0.1, vy: 0.05 },
+        { x: 0, y: 0, r: 0, color: COLORS[2], vx: -0.08, vy: 0.08 },
+        { x: 0, y: 0, r: 0, color: COLORS[3], vx: 0.05, vy: -0.1 },
     ];
+
+    // Layer 3: Shooting Star
+    let shootingStar = { x: 0, y: 0, vx: 0, vy: 0, life: 0, active: false };
+    let lastStarTime = 0;
 
     const init = () => {
         if (parent) {
             width = canvas.width = parent.clientWidth;
             height = canvas.height = parent.clientHeight;
         }
-        particles = [];
-        for(let i=0; i<PARTICLE_COUNT; i++) particles.push(new Particle(width, height));
         
-        clouds[0].x = width * 0.3; clouds[0].y = height * 0.3; clouds[0].r = Math.max(width, height) * 0.6;
-        clouds[1].x = width * 0.7; clouds[1].y = height * 0.7; clouds[1].r = Math.max(width, height) * 0.7;
-        clouds[2].x = width * 0.5; clouds[2].y = height * 0.5; clouds[2].r = Math.max(width, height) * 0.5;
+        particles = [];
+        for(let i=0; i<PARTICLE_COUNT_MAJOR; i++) particles.push(new Particle(width, height, true));
+        for(let i=0; i<PARTICLE_COUNT_DUST; i++) particles.push(new Particle(width, height, false));
+        
+        // Init Clouds relative to size
+        clouds[0].x = width * 0.2; clouds[0].y = height * 0.3; clouds[0].r = Math.max(width, height) * 0.7;
+        clouds[1].x = width * 0.8; clouds[1].y = height * 0.7; clouds[1].r = Math.max(width, height) * 0.8;
+        clouds[2].x = width * 0.5; clouds[2].y = height * 0.5; clouds[2].r = Math.max(width, height) * 0.6;
     };
 
-    // Mouse Handling
-    const onMouseMove = (e: MouseEvent) => {
+    window.addEventListener('resize', init);
+    
+    const onMouseMove = (e: Event) => {
+        const me = e as MouseEvent;
         if (!parent) return;
         const rect = parent.getBoundingClientRect();
         mouseRef.current = {
-            x: e.clientX - rect.left,
-            y: e.clientY - rect.top
+            x: me.clientX - rect.left,
+            y: me.clientY - rect.top
         };
     };
     const onMouseLeave = () => {
         mouseRef.current = { x: -9999, y: -9999 };
     };
-
-    window.addEventListener('resize', init);
+    
     if (parent) {
         parent.addEventListener('mousemove', onMouseMove);
         parent.addEventListener('mouseleave', onMouseLeave);
         init();
     }
 
-    const animate = () => {
+    const animate = (time: number) => {
         ctx.clearRect(0, 0, width, height);
+        
+        // Base Color (Sky-50) is already bg of parent, but we draw slightly to clear
+        ctx.fillStyle = COLORS[0];
+        ctx.fillRect(0, 0, width, height);
 
-        // 1. Draw Clouds (Nebula Background)
+        // 1. Nebula
+        ctx.globalCompositeOperation = 'multiply'; 
         clouds.forEach(c => {
             c.x += c.vx; c.y += c.vy;
-            if (c.x < -width*0.5 || c.x > width*1.5) c.vx *= -1;
-            if (c.y < -height*0.5 || c.y > height*1.5) c.vy *= -1;
+            if (c.x < -width*0.2 || c.x > width*1.2) c.vx *= -1;
+            if (c.y < -height*0.2 || c.y > height*1.2) c.vy *= -1;
             
             const g = ctx.createRadialGradient(c.x, c.y, 0, c.x, c.y, c.r);
             g.addColorStop(0, c.color);
-            g.addColorStop(1, 'rgba(255,255,255,0)');
+            g.addColorStop(1, '#ffffff'); 
             
             ctx.fillStyle = g;
             ctx.beginPath();
             ctx.arc(c.x, c.y, c.r, 0, Math.PI*2);
             ctx.fill();
         });
+        ctx.globalCompositeOperation = 'source-over'; 
 
-        // 2. Draw Particles
+        // 2. Particles
         particles.forEach(p => {
             p.update(mouseRef.current.x, mouseRef.current.y);
             p.draw(ctx);
         });
+
+        // 3. Shooting Star
+        if (time - lastStarTime > 8000) { 
+            shootingStar.active = true;
+            shootingStar.x = Math.random() * width * 0.8 + width * 0.1;
+            shootingStar.y = Math.random() * height * 0.3; 
+            shootingStar.vx = -3 - Math.random() * 3; 
+            shootingStar.vy = 2 + Math.random() * 2; 
+            shootingStar.life = 1.0;
+            lastStarTime = time;
+        }
+        
+        if (shootingStar.active) {
+            shootingStar.x += shootingStar.vx;
+            shootingStar.y += shootingStar.vy;
+            shootingStar.life -= 0.02;
+            
+            if (shootingStar.life <= 0) shootingStar.active = false;
+
+            const tailLength = 20;
+            const tailX = shootingStar.x - shootingStar.vx * tailLength;
+            const tailY = shootingStar.y - shootingStar.vy * tailLength;
+            
+            const g = ctx.createLinearGradient(shootingStar.x, shootingStar.y, tailX, tailY);
+            g.addColorStop(0, `rgba(14, 165, 233, ${shootingStar.life})`); 
+            g.addColorStop(1, 'transparent');
+            
+            ctx.beginPath();
+            ctx.moveTo(shootingStar.x, shootingStar.y);
+            ctx.lineTo(tailX, tailY);
+            ctx.strokeStyle = g;
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+        }
 
         requestAnimationFrame(animate);
     };
@@ -161,25 +234,20 @@ const NebulaEffect: React.FC = () => {
         }
         cancelAnimationFrame(animId);
     };
+
   }, []);
 
-  return (
-    <canvas 
-        ref={canvasRef} 
-        className="absolute inset-0 w-full h-full pointer-events-none" 
-        style={{ mixBlendMode: 'multiply' }} // Helps blend blue onto white nicely
-    />
-  );
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in opacity-100" />;
 };
 
 // --- Component: BentoCard ---
 interface BentoCardProps {
-  title?: string;
-  children: React.ReactNode;
-  className?: string;
-  colSpan?: string;
-  rowSpan?: string;
-  enableEffect?: boolean;
+    title?: string;
+    children: React.ReactNode;
+    className?: string;
+    colSpan?: string;
+    rowSpan?: string;
+    enableEffect?: boolean;
 }
 
 const BentoCard: React.FC<BentoCardProps> = ({ 
@@ -191,23 +259,23 @@ const BentoCard: React.FC<BentoCardProps> = ({
   enableEffect = true 
 }) => {
   return (
-    <div className={`relative overflow-hidden rounded-3xl p-6 shadow-sm border border-sky-100 
-      hover:shadow-[0_10px_40px_-10px_rgba(14,165,233,0.2)] hover:border-sky-300 hover:ring-2 hover:ring-sky-100
+    <div className={`relative overflow-hidden backdrop-blur-md rounded-3xl p-6 shadow-sm border border-sky-50 
+      hover:shadow-[0_10px_40px_-10px_rgba(14,165,233,0.2)] hover:border-sky-200 hover:ring-2 hover:ring-sky-50/50
       transition-all duration-300 hover:-translate-y-1 ${colSpan} ${rowSpan} ${className}
-      bg-white
+      ${!enableEffect ? 'bg-white/80' : ''} 
     `}>
       
       {/* Background Effect */}
       {enableEffect && (
-        <div className="absolute inset-0 z-0 opacity-100">
+        <div className="absolute inset-0 z-0 opacity-60">
           <NebulaEffect />
         </div>
       )}
 
-      {/* Content (z-10 to sit above canvas) */}
-      <div className="relative z-10 h-full flex flex-col">
-        {title && <h2 className="text-xl font-bold mb-4 tracking-tight z-10">{title}</h2>}
-        <div className="h-full z-10">
+      {/* Content */}
+      <div className="relative z-10 h-full">
+        {title && <h2 className="text-xl font-bold mb-4 tracking-tight">{title}</h2>}
+        <div className="h-full">
           {children}
         </div>
       </div>
@@ -216,7 +284,7 @@ const BentoCard: React.FC<BentoCardProps> = ({
 };
 
 // --- Component: FloatingCat (Right Bottom) ---
-const FloatingCat: React.FC = () => {
+const FloatingCat = () => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -257,12 +325,17 @@ const FloatingCat: React.FC = () => {
 };
 
 // --- Component: LoadingScreen ---
-const LoadingScreen: React.FC<{ onFinished: () => void }> = ({ onFinished }) => {
-  const [bubbles, setBubbles] = useState<any[]>([]);
+interface Bubble {
+    id: string;
+    style: React.CSSProperties;
+}
+
+const LoadingScreen = ({ onFinished }: { onFinished: () => void }) => {
+  const [bubbles, setBubbles] = useState<Bubble[]>([]);
   const nextSpawnTimeRef = useRef(0);
   const startTimeRef = useRef(Date.now());
   const isFinishedRef = useRef(false);
-  const animationFrameRef = useRef<number>(0);
+  const animationFrameRef = useRef(0);
 
   useEffect(() => {
     const loop = () => {
@@ -297,7 +370,7 @@ const LoadingScreen: React.FC<{ onFinished: () => void }> = ({ onFinished }) => 
                     '--life': life,
                     '--start-offset': startOffset,
                     '--sway-end': swayEnd
-                }
+                } as React.CSSProperties
             }]);
         }
         animationFrameRef.current = requestAnimationFrame(loop);
@@ -323,7 +396,7 @@ const LoadingScreen: React.FC<{ onFinished: () => void }> = ({ onFinished }) => 
 };
 
 // --- Component: App ---
-const App: React.FC = () => {
+const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const WindChime = () => (
@@ -356,7 +429,7 @@ const App: React.FC = () => {
                  <div className="relative shrink-0">
                     <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-white shadow-[0_0_20px_-5px_rgba(186,230,253,0.8)] transition-transform duration-500 group-hover:rotate-3 group-hover:scale-105">
                         <img 
-                            src="./01.jpg" 
+                            src="osiris bento/01.jpg" 
                             onError={(e) => { e.currentTarget.src = "https://picsum.photos/300/300"; }}
                             alt="Osiris Avatar" 
                             className="w-full h-full object-cover"
@@ -411,7 +484,7 @@ const App: React.FC = () => {
           <BentoCard 
              title="Get in Touch" 
              colSpan="col-span-1 md:col-span-2" 
-             enableEffect={false} // Disable nebula here to use the gradient background
+             enableEffect={false} 
              className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-xl shadow-cyan-200/50 border-none"
           >
             <div className="flex flex-col sm:flex-row items-center justify-around h-full gap-4">
@@ -446,7 +519,7 @@ const App: React.FC = () => {
 // --- Root Render ---
 const rootElement = document.getElementById('root');
 if (rootElement) {
-  const root = ReactDOM.createRoot(rootElement);
+  const root = createRoot(rootElement);
   root.render(
     <React.StrictMode>
       <App />
