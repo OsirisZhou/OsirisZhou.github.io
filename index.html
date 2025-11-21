@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Osiris’s site</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <!-- React & ReactDOM (UMD) -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- Babel Standalone for in-browser compilation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f0f9ff; /* Sky-50 */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #bae6fd; /* Sky-200 */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #7dd3fc; /* Sky-300 */
+        }
+        
+        /* Loading Screen Animation */
+        .clean-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 9999; 
+            background: linear-gradient(180deg, #ffffff 0%, #f0f9ff 60%, #e0f2fe 100%);
+            overflow: hidden;
+        }
+
+        .gray-overlay {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(248, 250, 252, 0.3);
+            mix-blend-mode: multiply;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        .bubble-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9) 0%, rgba(186, 230, 253, 0.6) 50%, rgba(125, 211, 252, 0.2) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 2px 4px rgba(186, 230, 253, 0.3);
+            pointer-events: none;
+            will-change: transform, opacity;
+            animation: bubble-rise var(--life) ease-in forwards;
+            z-index: 10;
+        }
+
+        @keyframes bubble-rise {
+            0% {
+                transform: translate3d(0, 0, 0) scale(0.5);
+                opacity: 0;
+                bottom: 0;
+                left: 50%;
+                margin-left: var(--start-offset);
+            }
+            20% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate3d(var(--sway-end), -80vh, 0) scale(1.2);
+                opacity: 0;
+                bottom: 0;
+                left: 50%;
+                margin-left: var(--start-offset);
+            }
+        }
+
+        .loader-pulse {
+            animation: loader-pulse-anim 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes loader-pulse-anim {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.95); }
+        }
+    </style>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'bento-bg': '#f0f9ff', // Sky-50
+              'card-bg': '#ffffff',
+              'text-primary': '#0f172a',
+              'text-secondary': '#475569',
+            },
+            animation: {
+              'float': 'float 3s ease-in-out infinite',
+              'wiggle': 'wiggle 2s ease-in-out infinite',
+              'sway': 'sway 3s ease-in-out infinite',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-10px)' },
+              },
+              wiggle: {
+                '0%, 100%': { transform: 'rotate(-5deg)' },
+                '50%': { transform: 'rotate(5deg)' },
+              },
+              sway: {
+                '0%, 100%': { transform: 'rotate(-3deg)' },
+                '50%': { transform: 'rotate(3deg)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-bento-bg text-text-primary antialiased overflow-x-hidden font-sans selection:bg-sky-200">
+    <div id="root"></div>
+    
+    <!-- Main Logic loaded as Babel script -->
+    <script type="text/babel" data-presets="react,typescript" src="index.tsx"></script>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
+    
