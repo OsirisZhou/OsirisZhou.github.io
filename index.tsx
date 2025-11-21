@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom/client';
 
@@ -216,7 +215,7 @@ const BentoCard: React.FC<BentoCardProps> = ({
   );
 };
 
-// --- Component: FloatingCat ---
+// --- Component: FloatingCat (Right Bottom) ---
 const FloatingCat: React.FC = () => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -357,7 +356,7 @@ const App: React.FC = () => {
                  <div className="relative shrink-0">
                     <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-white shadow-[0_0_20px_-5px_rgba(186,230,253,0.8)] transition-transform duration-500 group-hover:rotate-3 group-hover:scale-105">
                         <img 
-                            src="osiris bento/01.jpg" 
+                            src="./01.jpg" 
                             onError={(e) => { e.currentTarget.src = "https://picsum.photos/300/300"; }}
                             alt="Osiris Avatar" 
                             className="w-full h-full object-cover"
@@ -408,7 +407,7 @@ const App: React.FC = () => {
              </ul>
           </BentoCard>
 
-          {/* Contact - Custom Blue Gradient (No Nebula, uses pure CSS gradient as requested) */}
+          {/* Contact - Custom Blue Gradient (No Nebula, uses pure CSS gradient) */}
           <BentoCard 
              title="Get in Touch" 
              colSpan="col-span-1 md:col-span-2" 
@@ -454,4 +453,3 @@ if (rootElement) {
     </React.StrictMode>
   );
 }
-    
