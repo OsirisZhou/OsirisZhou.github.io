@@ -14,11 +14,11 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
 
-    <!-- React & ReactDOM (UMD) -->
+    <!-- React & ReactDOM (UMD for static usage without npm) -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     
-    <!-- Babel Standalone for in-browser compilation -->
+    <!-- Babel Standalone (compiles JSX in browser) -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <style>
@@ -129,11 +129,24 @@
         }
       }
     </script>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/"
+  }
+}
+</script>
 </head>
   <body class="bg-bento-bg text-text-primary antialiased overflow-x-hidden font-sans selection:bg-sky-200">
     <div id="root"></div>
     
-    <!-- Main Logic loaded as Babel script. Requires a local server (http://) not file:// -->
+    <!-- 
+      Load the logic script. 
+      Note: On GitHub Pages, this relative path works. 
+      Babel will fetch this file, compile it, and execute it.
+    -->
     <script type="text/babel" data-presets="react,typescript" src="index.tsx"></script>
   </body>
 </html>
